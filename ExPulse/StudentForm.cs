@@ -6,7 +6,6 @@ namespace ExPulse
     public partial class StudentForm : Form
     {
         private Data data = new Data();
-        private GridConfigurator gridConfigurator = new GridConfigurator();
 
         public StudentForm()
         {
@@ -20,10 +19,8 @@ namespace ExPulse
 
         private void UpdateDataGridView()
         {
-            examGrid.DataSource = data.GetExams();
-            data.InitializeGradeGrid(gradeGrid);
-            gridConfigurator.TranslateExamColumns(examGrid);
-            gridConfigurator.ResizeGradeColumns(gradeGrid);
+            examGrid.DataSource = data.GetExamTableData();
+            gradeGrid.DataSource = data.GetGradeTableData();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -32,7 +29,10 @@ namespace ExPulse
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
-                Application.Exit();
+                LoginForm loginForm = new LoginForm();
+                loginForm.FormClosed += (s, args) => this.Close();
+                loginForm.Show();
+                this.Hide();
             }
         }
     }

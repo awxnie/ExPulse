@@ -1,118 +1,95 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace ExPulse
 {
     internal class Data
     {
-        private string connectionString;
-        public List<string> exams = new List<string>();
-        public List<string> students = new List<string>();
+        string connectionString = 
+        "Server=localhost;Port=3306;Database=examdb;Username=root;Password=root;";
 
-        public Data()
+        public DataTable GetGradeTableData()
         {
-            connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Database"].ConnectionString;
+            List<string> exams = new List<string>();
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+            MySqlCommand command = new MySqlCommand("SELECT name FROM exams", connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                exams.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            List<string> caseStatements = new List<string>();
+            foreach (string exam in exams)
+            {
+                caseStatements.Add($"MAX(CASE WHEN e.name = '{exam}' THEN g.value END) AS `{exam}`");
+            }
+            string query = $@"
+            SELECT 
+                s.fullname AS Студент,
+                {string.Join(", ", caseStatements)}
+                FROM students s
+                LEFT JOIN grades g ON s.idstudents = g.idstudent
+                LEFT JOIN exams e ON g.idexam = e.idexam
+                GROUP BY s.idstudents, s.fullname";
+
+            command = new MySqlCommand(query, connection);
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            connection.Close();
+            return table;
+        }
+        public DataTable GetExamTableData()
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+            MySqlCommand command = new MySqlCommand("SELECT " +
+                                                    "name AS 'Название', " +
+                                                    "date AS 'Дата', " +
+                                                    "time AS 'Время', " +
+                                                    "auditorium AS 'Аудитория' " +
+                                                    $"FROM exams", connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            reader.Close();
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            connection.Close();
+            return table;
         }
 
-        public void AddExam(string name, string date, string time, string auditorium)
+        public bool AddExam(string Name, string Date, string Time, string Auditorium)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string name = Name;
+            string date = Date;
+            string time = Time;
+            string auiditoruim = Auditorium;
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+            string query = "INSERT INTO exams (name, date, time, auditorium)" +
+                "VALUES(@name, @date, @time, @auditorium)";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@date", date);
+            command.Parameters.AddWithValue("@time", time);
+            command.Parameters.AddWithValue("@auditorium", auiditoruim);
+            try
             {
-                string query = "INSERT INTO Exams (Name, Date, Time, Auditorium) VALUES (@Name, @Date, @Time, @Auditorium)";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Date", date);
-                    command.Parameters.AddWithValue("@Time", time);
-                    command.Parameters.AddWithValue("@Auditorium", auditorium);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
+                MySqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                MessageBox.Show("Запись успешно добавлена");
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("Некорректный ввод");
+                return false;
             }
         }
 
-        public DataTable GetExams()
-        {
-            DataTable dataTable = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT Name, Date, Time, Auditorium FROM Exams";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
-                    dataAdapter.Fill(dataTable);
-                }
-            }
-
-            return dataTable;
-        }
-
-        public List<string> GetExamNames()
-        {
-            List<string> examNames = new List<string>();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT Name FROM Exams";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string examName = reader.GetString(0);
-                            examNames.Add(examName);
-                        }
-                    }
-                }
-            }
-
-            return examNames;
-        }
-
-        public void InitializeGradeGrid(DataGridView gradeGrid)
-        {
-            gradeGrid.Columns.Clear();
-            gradeGrid.Rows.Clear();
-            exams = GetExamNames();
-            students = new List<string>()
-            {
-                "Фламберг Алексей Вадимович",
-                "Чернявский Михаил Александрович",
-                "Рябков Максим Бракич",
-                "Бахин Максим Баха",
-                "Егоров Роман Сакутин"
-            };
-
-            gradeGrid.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "Name",
-                HeaderText = "Ученик",
-                ReadOnly = true
-            });
-
-            foreach (var exam in exams)
-            {
-                gradeGrid.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = exam,
-                    HeaderText = exam
-                });
-            }
-
-            foreach (var student in students)
-            {
-                int rowIndex = gradeGrid.Rows.Add();
-                gradeGrid.Rows[rowIndex].Cells["Name"].Value = student;
-            }        
-        }
     }
 }

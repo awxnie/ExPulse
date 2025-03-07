@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace ExPulse
@@ -6,7 +7,6 @@ namespace ExPulse
     public partial class TeacherForm : Form
     {
         private Data data = new Data();
-        private GridConfigurator gridConfigurator = new GridConfigurator();
 
         public TeacherForm()
         {
@@ -20,10 +20,8 @@ namespace ExPulse
 
         private void UpdateDataGridView()
         {
-            examGrid.DataSource = data.GetExams();
-            data.InitializeGradeGrid(gradeGrid);
-            gridConfigurator.TranslateExamColumns(examGrid);
-            gridConfigurator.ResizeGradeColumns(gradeGrid);
+            examGrid.DataSource = data.GetExamTableData();
+            gradeGrid.DataSource = data.GetGradeTableData();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -33,15 +31,23 @@ namespace ExPulse
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
-                Application.Exit();
+                LoginForm loginForm = new LoginForm();
+                loginForm.FormClosed += (s, args) => this.Close();
+                loginForm.Show();
+                this.Hide();
             }
         }
 
         private void AddExamButton_Click(object sender, EventArgs e)
         {
-            data.AddExam(NameTextBox.Text, DateTextBox.Text, TimeTextBox.Text, AuditoriumTextBox.Text);
-            MessageBox.Show("Данные успешно добавлены!");
-            UpdateDataGridView();
+            if(data.AddExam(NameTextBox.Text, DateTextBox.Text, TimeTextBox.Text, AuditoriumTextBox.Text))
+            {
+                NameTextBox.Clear();
+                DateTextBox.Clear();
+                TimeTextBox.Clear();
+                AuditoriumTextBox.Clear();
+                UpdateDataGridView();
+            }
         }
 
         private void SaveGradeButton_Click(object sender, EventArgs e)

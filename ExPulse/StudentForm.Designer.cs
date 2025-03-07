@@ -28,129 +28,138 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label3 = new System.Windows.Forms.Label();
-            this.exitButton = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.examGrid = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.gradeGrid = new System.Windows.Forms.DataGridView();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.examGrid)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gradeGrid)).BeginInit();
-            this.SuspendLayout();
+            label3 = new Label();
+            exitButton = new Button();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            examGrid = new DataGridView();
+            tabPage3 = new TabPage();
+            gradeGrid = new DataGridView();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)examGrid).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gradeGrid).BeginInit();
+            SuspendLayout();
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.Window;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(398, 58);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Студент: Фламберг Алексей Вадимович";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            label3.BackColor = SystemColors.Window;
+            label3.Font = new Font("Segoe UI", 10.2F);
+            label3.ForeColor = SystemColors.ActiveCaptionText;
+            label3.Location = new Point(6, 4);
+            label3.Name = "label3";
+            label3.Size = new Size(348, 30);
+            label3.TabIndex = 6;
+            label3.Text = "Студент: Фламберг Алексей Вадимович";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // exitButton
             // 
-            this.exitButton.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitButton.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.exitButton.Location = new System.Drawing.Point(1063, 12);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(107, 59);
-            this.exitButton.TabIndex = 9;
-            this.exitButton.Text = "Выйти";
-            this.exitButton.UseVisualStyleBackColor = false;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            exitButton.BackColor = SystemColors.GradientActiveCaption;
+            exitButton.FlatStyle = FlatStyle.Flat;
+            exitButton.Font = new Font("Segoe UI", 10.2F);
+            exitButton.Location = new Point(930, 9);
+            exitButton.Margin = new Padding(3, 2, 3, 2);
+            exitButton.Name = "exitButton";
+            exitButton.Size = new Size(94, 44);
+            exitButton.TabIndex = 9;
+            exitButton.Text = "Выйти";
+            exitButton.UseVisualStyleBackColor = false;
+            exitButton.Click += exitButton_Click;
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(1, 77);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1182, 627);
-            this.tabControl1.TabIndex = 10;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Location = new Point(0, 40);
+            tabControl1.Margin = new Padding(3, 2, 3, 2);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1034, 482);
+            tabControl1.TabIndex = 10;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.examGrid);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1174, 594);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Расписание";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(examGrid);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Margin = new Padding(3, 2, 3, 2);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3, 2, 3, 2);
+            tabPage1.Size = new Size(1026, 454);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Расписание";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // examGrid
             // 
-            this.examGrid.AllowUserToAddRows = false;
-            this.examGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.examGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.examGrid.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.examGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.examGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.examGrid.Location = new System.Drawing.Point(0, 0);
-            this.examGrid.Name = "examGrid";
-            this.examGrid.ReadOnly = true;
-            this.examGrid.RowHeadersVisible = false;
-            this.examGrid.RowHeadersWidth = 51;
-            this.examGrid.RowTemplate.Height = 29;
-            this.examGrid.Size = new System.Drawing.Size(1174, 603);
-            this.examGrid.TabIndex = 2;
+            examGrid.AllowUserToAddRows = false;
+            examGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            examGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            examGrid.BackgroundColor = SystemColors.ControlLight;
+            examGrid.BorderStyle = BorderStyle.None;
+            examGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            examGrid.Dock = DockStyle.Fill;
+            examGrid.Location = new Point(3, 2);
+            examGrid.Margin = new Padding(3, 2, 3, 2);
+            examGrid.Name = "examGrid";
+            examGrid.ReadOnly = true;
+            examGrid.RowHeadersVisible = false;
+            examGrid.RowHeadersWidth = 51;
+            examGrid.RowTemplate.Height = 29;
+            examGrid.Size = new Size(1020, 450);
+            examGrid.TabIndex = 2;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.gradeGrid);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1174, 594);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Оценка";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(gradeGrid);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Margin = new Padding(3, 2, 3, 2);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(1026, 454);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Оценка";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // gradeGrid
             // 
-            this.gradeGrid.AllowUserToAddRows = false;
-            this.gradeGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gradeGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.gradeGrid.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.gradeGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.gradeGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gradeGrid.Location = new System.Drawing.Point(0, 0);
-            this.gradeGrid.Name = "gradeGrid";
-            this.gradeGrid.ReadOnly = true;
-            this.gradeGrid.RowHeadersVisible = false;
-            this.gradeGrid.RowHeadersWidth = 51;
-            this.gradeGrid.RowTemplate.Height = 29;
-            this.gradeGrid.Size = new System.Drawing.Size(1174, 594);
-            this.gradeGrid.TabIndex = 1;
+            gradeGrid.AllowUserToAddRows = false;
+            gradeGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gradeGrid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            gradeGrid.BackgroundColor = SystemColors.ControlLight;
+            gradeGrid.BorderStyle = BorderStyle.None;
+            gradeGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gradeGrid.Dock = DockStyle.Fill;
+            gradeGrid.Location = new Point(0, 0);
+            gradeGrid.Margin = new Padding(3, 2, 3, 2);
+            gradeGrid.Name = "gradeGrid";
+            gradeGrid.ReadOnly = true;
+            gradeGrid.RowHeadersVisible = false;
+            gradeGrid.RowHeadersWidth = 51;
+            gradeGrid.RowTemplate.Height = 29;
+            gradeGrid.Size = new Size(1026, 454);
+            gradeGrid.TabIndex = 1;
             // 
             // StudentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1182, 703);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.label3);
-            this.Name = "StudentForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ExPulse";
-            this.Load += new System.EventHandler(this.StudentForm_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.examGrid)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gradeGrid)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(1034, 527);
+            Controls.Add(exitButton);
+            Controls.Add(tabControl1);
+            Controls.Add(label3);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "StudentForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "ExPulse";
+            Load += StudentForm_Load;
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)examGrid).EndInit();
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gradeGrid).EndInit();
+            ResumeLayout(false);
 
         }
 
